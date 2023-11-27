@@ -20,7 +20,7 @@ namespace ProNatur_Biomarkt_GmbH
         private void btnProductSave_Click(object sender, EventArgs e)
         {
             string productName = textBoxProductName.Text;
-            Console.WriteLine(productName);
+            // save product name in database
         }
 
         private void btnProductEdit_Click(object sender, EventArgs e)
