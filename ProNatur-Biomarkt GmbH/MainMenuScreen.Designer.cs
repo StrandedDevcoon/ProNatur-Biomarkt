@@ -66,6 +66,8 @@
             this.ClientSize = new System.Drawing.Size(598, 152);
             this.Controls.Add(this.btnBill);
             this.Controls.Add(this.btnProducts);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MainMenuScreen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hauptmenü";
