@@ -19,6 +19,11 @@ namespace ProNatur_Biomarkt_GmbH
         public ProductsScreen()
         {
             InitializeComponent();
+            ShowProducts();
+        }
+
+        private void ShowProducts()
+        {
             databaseConnection.Open();
 
             string query = "select * from Products";
@@ -37,21 +42,31 @@ namespace ProNatur_Biomarkt_GmbH
         {
             string productName = textBoxProductName.Text;
             // save product name in database
+
+            ShowProducts();
         }
 
         private void btnProductEdit_Click(object sender, EventArgs e)
         {
 
+
+            ShowProducts();
         }
 
         private void btnProductClear_Click(object sender, EventArgs e)
         {
-
+            textBoxProductName.Text = "";
+            textBoxProductBrand.Text = "";
+            textBoxProductPrice.Text = "";
+            comboBoxProductCategory.Text = "";
+            comboBoxProductCategory.SelectedItem = null;
         }
 
         private void btnProductDelete_Click(object sender, EventArgs e)
         {
 
+
+            ShowProducts();
         }
     }
 }
