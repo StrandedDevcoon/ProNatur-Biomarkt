@@ -22,27 +22,30 @@ namespace ProNatur_Biomarkt_GmbH
             ShowProducts();
         }
 
-        private void ShowProducts()
-        {
-            databaseConnection.Open();
-
-            string query = "select * from Products";
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, databaseConnection);
-
-            DataSet dataSet = new DataSet();
-            sqlDataAdapter.Fill(dataSet);
-
-            productsDGV.DataSource = dataSet.Tables[0];
-            productsDGV.Columns[0].Visible = false;
-
-            databaseConnection.Close();
-        }
-
         private void btnProductSave_Click(object sender, EventArgs e)
         {
-            string productName = textBoxProductName.Text;
-            // save product name in database
 
+            if(textBoxProductName.Text == ""
+                || textBoxProductBrand.Text == ""
+                || comboBoxProductCategory.Text == ""
+                || textBoxProductPrice.Text == "")
+            {
+                MessageBox.Show("Bitte fülle alle Felder aus.");
+                return;
+            }
+
+            string productName = textBoxProductName.Text;
+            string productBrand = textBoxProductBrand.Text;
+            string productCategory = comboBoxProductCategory.Text;
+            string productPrice = textBoxProductPrice.Text;
+
+            databaseConnection.Open();
+            string query = string.Format("insert into Products values('{0}', '{1}', '{2}', '{3}')", productName, productBrand, productCategory, productPrice);
+            SqlCommand sqlCommand = new SqlCommand(query, databaseConnection);
+            sqlCommand.ExecuteNonQuery();
+            databaseConnection.Close();
+
+            ClearAllFields();
             ShowProducts();
         }
 
@@ -65,6 +68,22 @@ namespace ProNatur_Biomarkt_GmbH
             ShowProducts();
         }
 
+        private void ShowProducts()
+        {
+            databaseConnection.Open();
+
+            string query = "select * from Products";
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, databaseConnection);
+
+            DataSet dataSet = new DataSet();
+            sqlDataAdapter.Fill(dataSet);
+
+            productsDGV.DataSource = dataSet.Tables[0];
+            productsDGV.Columns[0].Visible = false;
+
+            databaseConnection.Close();
+        }
+
         private void ClearAllFields()
         {
             textBoxProductName.Text = "";
@@ -73,5 +92,6 @@ namespace ProNatur_Biomarkt_GmbH
             comboBoxProductCategory.Text = "";
             comboBoxProductCategory.SelectedItem = null;
         }
+
     }
 }
