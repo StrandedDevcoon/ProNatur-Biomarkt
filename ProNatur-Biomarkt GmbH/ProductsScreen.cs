@@ -20,6 +20,16 @@ namespace ProNatur_Biomarkt_GmbH
         {
             InitializeComponent();
             databaseConnection.Open();
+
+            string query = "select * from Products";
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, databaseConnection);
+
+            DataSet dataSet = new DataSet();
+            sqlDataAdapter.Fill(dataSet);
+
+            productsDGV.DataSource = dataSet.Tables[0];
+            productsDGV.Columns[0].Visible = false;
+
             databaseConnection.Close();
         }
 
