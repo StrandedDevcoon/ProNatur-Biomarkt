@@ -55,11 +55,7 @@ namespace ProNatur_Biomarkt_GmbH
 
         private void btnProductClear_Click(object sender, EventArgs e)
         {
-            textBoxProductName.Text = "";
-            textBoxProductBrand.Text = "";
-            textBoxProductPrice.Text = "";
-            comboBoxProductCategory.Text = "";
-            comboBoxProductCategory.SelectedItem = null;
+            ClearAllFields();
         }
 
         private void btnProductDelete_Click(object sender, EventArgs e)
@@ -67,6 +63,15 @@ namespace ProNatur_Biomarkt_GmbH
 
 
             ShowProducts();
+        }
+
+        private void ClearAllFields()
+        {
+            textBoxProductName.Text = "";
+            textBoxProductBrand.Text = "";
+            textBoxProductPrice.Text = "";
+            comboBoxProductCategory.Text = "";
+            comboBoxProductCategory.SelectedItem = null;
         }
     }
 }
