@@ -24,7 +24,6 @@ namespace ProNatur_Biomarkt_GmbH
 
         private void btnProductSave_Click(object sender, EventArgs e)
         {
-
             if(textBoxProductName.Text == ""
                 || textBoxProductBrand.Text == ""
                 || comboBoxProductCategory.Text == ""
@@ -41,14 +40,28 @@ namespace ProNatur_Biomarkt_GmbH
 
             string query = string.Format("insert into Products values('{0}', '{1}', '{2}', '{3}')", productName, productBrand, productCategory, productPrice);
             ExecuteQuery(query);
+
             ClearAllFields();
             ShowProducts();
         }
 
         private void btnProductEdit_Click(object sender, EventArgs e)
         {
+            if (lastSelectedProductKey == 0)
+            {
+                MessageBox.Show("Bitte wähle zuerst ein Produkt aus");
+                return;
+            }
 
+            string productName = textBoxProductName.Text;
+            string productBrand = textBoxProductBrand.Text;
+            string productCategory = comboBoxProductCategory.Text;
+            string productPrice = textBoxProductPrice.Text;
 
+            string query = string.Format("update Products set Name='{0}', Brand='{1}', Category='{2}', Price='{3}' where Id={4}"
+                ,productName, productBrand, productCategory, productPrice, lastSelectedProductKey);
+
+            ExecuteQuery(query);
             ShowProducts();
         }
 
@@ -67,6 +80,7 @@ namespace ProNatur_Biomarkt_GmbH
             
             string query = string.Format("delete from Products where Id={0};", lastSelectedProductKey);
             ExecuteQuery(query);
+
             ClearAllFields();
             ShowProducts();
         }
